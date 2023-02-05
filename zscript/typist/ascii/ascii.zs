@@ -51,6 +51,7 @@ class tt_Ascii
 
     Backslash  =  92,
 
+    Backtick   =  96,
     LowercaseA =  97,
     LowercaseZ = 122,
 

@@ -58,6 +58,7 @@ class tt_Character
     else if (code == tt_Ascii.Enter    )       { result._type = ENTER;          }
     else if (code == tt_Ascii.Space    )       { result._type = ENTER;          }
     else if (code == tt_Ascii.Escape   )       { result._type = ESCAPE;         }
+    else if (code == tt_Ascii.Backtick )       { result._type = BACKTICK;       }
     else if (code <  tt_Ascii.FIRST_PRINTABLE) { result._type = NONE;           }
     else
     {
@@ -79,6 +80,7 @@ class tt_Character
     ENTER,
     ENTER_UP,
     ESCAPE,
+    BACKTICK,
   }
 
   int getType() const { return _type; }

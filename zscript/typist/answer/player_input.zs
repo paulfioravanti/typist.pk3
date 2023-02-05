@@ -60,7 +60,7 @@ class tt_PlayerInput : tt_AnswerSource
 
     case tt_Character.BACKSPACE:      _answer.deleteLastCharacter();         break;
     case tt_Character.CTRL_BACKSPACE: reset();                               break;
-    case tt_Character.ESCAPE:         _modeStorage.setMode(tt_Mode.Explore); break;
+    case tt_Character.BACKTICK:       _modeStorage.setMode(tt_Mode.Explore); break;
     }
   }
 
