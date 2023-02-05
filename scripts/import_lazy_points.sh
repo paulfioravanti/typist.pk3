@@ -13,6 +13,6 @@ cp -r  $source_dir $target_dir
 
 parameters_file="$target_dir/zc_Parameters.zs"
 
-sed -i 's/FONT = .*/FONT = "NewSmallFont";/'          "$parameters_file"
-sed -i 's/BONUS_COUNTDOWN = .*/BONUS_COUNTDOWN = 4;/' "$parameters_file"
-sed -i 's/Y_OFFSET = .*/Y_OFFSET = 100;/'             "$parameters_file"
+gsed -i 's/FONT = .*/FONT = "NewSmallFont";/'          "$parameters_file"
+gsed -i 's/BONUS_COUNTDOWN = .*/BONUS_COUNTDOWN = 4;/' "$parameters_file"
+gsed -i 's/Y_OFFSET = .*/Y_OFFSET = 100;/'             "$parameters_file"

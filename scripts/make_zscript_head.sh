@@ -10,7 +10,7 @@ echo -e "version 4.5
 " > zscript.zs
 
 sources=$(find zscript -name "*.zs")
-extends=$(grep -nrPzl "extend.*\\nclass" zscript | grep -v "~" | sort)
+extends=$(ggrep -nrPzl "extend.*\\nclass" zscript | ggrep -v "~" | sort)
 sources=$(echo "$sources" | grep -v "$extends" | sort)
 
 includes=$(echo "$sources" | while read -r f; do echo "#include \"$f\""; done)

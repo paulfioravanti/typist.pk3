@@ -9,7 +9,7 @@
 set -e
 
 name=typist
-version=$(git describe --abbrev=0 --tags)
+version=$(git describe --abbrev --tags --always)
 file_name=$name-$version.pk3
 files=$(find . -name "*.zs"  \
             -o -name "*.md"  \

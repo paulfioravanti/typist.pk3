@@ -115,6 +115,78 @@ To run tests:
 
 It may be possible to compile this on Windows. Install Msys or something. You're on your own :)
 
+### macOS
+
+In order to get Typist to compile on macOS, a few changes needed to be made
+to the code.
+
+#### Symbolic Links
+
+The `3rdparty` directory has some symbolic links that point out to some other
+GitHub repositories: [clematis](https://github.com/mmaulwurff/clematis) and
+[lazy-points](https://github.com/mmaulwurff/lazy-points). macOS has a hard
+time dealing with symbolic links, so it's going to be much easier to just
+clone the repos directly into the `3rdparty` directory to enable them to be
+referenced:
+
+```sh
+cd 3rdparty
+git clone git@github.com:mmaulwurff/clematis.git
+git clone git@github.com:mmaulwurff/lazy-points.git
+cd ..
+```
+
+#### `git describe`
+
+Since any fork you do won't have the tagged version, in the `scripts/build.sh`
+and `scripts/make_title.sh` files, change the `version` variable to pass the
+`--always` flag in the `git describe` command, otherwise compilation will fail:
+
+```sh
+version=$(git describe --abbrev --tags --always)
+```
+
+#### Install Dependencies
+
+Since the `grep` and `sed` commands are used extensively in the build scripts,
+and since those commands operate differently between Mac and Linux when using
+certain flags, the easiest way to bridge the gap between them is to install GNU
+versions of them. Do a search for `ggrep` and `gsed` to see where the GNU
+versions needed to be used.
+
+The `scripts/spelling_code.sh` script requires the `aspell` tool.
+
+Multiple scripts require the `rename` command.
+
+All these dependencies can be installed with Homebrew:
+
+```sh
+brew install grep gnu-sed aspell rename
+```
+
+`grep` and `gnu-sed` provide the `ggrep` and `gsed` commands.
+
+#### `xargs` Arguments
+
+In the `scripts/import_clematis.sh` file, there are instances of the command
+`xargs --null`, which doesn't seem to work on macOS. Change lines which have
+it to the following:
+
+```sh
+find . -name "*.zs"  -print0 | xargs -0 gsed -i 's/Clematis/tt_Clematis/g'
+find . -name "*.zs"  -print0 | xargs -0 gsed -i 's/Cl_/tt_Cl_/g'
+```
+
+At this point, you should be able to successfully compile a pk3 file:
+
+```sh
+➜ [typist.pk3 (master) ✗]$ ./scripts/build.sh
+typist-<git-hash>.pk3
+```
+
+Once that's done, try and load it with GZDoom and it should work. All those
+changes have been done on the branch with this section of the Readme file.
+
 ## Software Used
 
 - [Emacs](https://www.gnu.org/software/emacs/)
